@@ -8,6 +8,8 @@ import createAppReducer from './reducer';
 import { adminSaga } from './sideEffect';
 import { defaultI18nProvider } from './i18n';
 
+import formMiddleware from './form/formMiddleware';
+
 export default ({
     authProvider,
     customReducers = {},
@@ -36,7 +38,7 @@ export default ({
         resettableAppReducer,
         initialState,
         compose(
-            applyMiddleware(sagaMiddleware, routerMiddleware(history)),
+            applyMiddleware(sagaMiddleware, routerMiddleware(history), formMiddleware),
             typeof window !== 'undefined' && window.devToolsExtension
                 ? window.devToolsExtension()
                 : f => f
